@@ -13,7 +13,11 @@ LIBFT = $(LIB_DIR)/libft.a
 
 SRCS = \
 	$(SRC_DIR)/main.c \
-	$(SRC_DIR)/mlx_usage.c
+	$(SRC_DIR)/mlx_usage.c \
+	$(SRC_DIR)/vec3.c \
+	$(SRC_DIR)/color.c \
+	$(SRC_DIR)/camera.c \
+	$(SRC_DIR)/ray.c \
 
 OBJS = $(SRCS:.c=.o)
 

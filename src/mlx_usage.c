@@ -1,10 +1,10 @@
 #include "rt.h"
 
-void	init_mlx(t_mlx *mlx)
+void	init_mlx(t_mlx *mlx, int width, int height)
 {
 	mlx->mlx_ptr = mlx_init();
-	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr,HEIGHT,WIDTH, "janelaaaaa");
-	mlx->img = mlx_new_image(mlx->mlx_ptr, HEIGHT, WIDTH);
+	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr,width,height, "janelaaaaa");
+	mlx->img = mlx_new_image(mlx->mlx_ptr, width, height);
 	mlx->addr = mlx_get_data_addr(mlx->img,&mlx->bits_per_pixel,\
 		&mlx->line_length,&mlx->endian);
 }
