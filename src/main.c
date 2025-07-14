@@ -15,14 +15,21 @@ int rgb_to_int(int r, int g, int b) {
 	// (orig + t * dir - center) . (orig + t * dir - center) = radius^2
 	// Expande e resolve para t
 	// Se o discriminante for >= 0, há interseção
-int hit_sphere(t_vec3 center, double radius, t_ray r)
+double hit_sphere(t_vec3 center, double radius, t_ray r)
 {
-	t_vec3 oc = vec3_sub(center, ray_origin(r));
-	double a = vec3_length_squared(ray_direction(r));
-	double b = -2.0 * vec3_dot(ray_direction(r), oc);
-	double c = vec3_length_squared(oc) - radius * radius;
-	double discriminant = b * b - 4 * a * c;
-	return (discriminant >= 0 ? TRUE : FALSE);
+	t_vec3 oc;
+	double a,c,h, discriminant;
+	/* vetor do centro da esfera até a origem do raio */
+	oc = vec3_sub(center, r.orig);
+	/* coeficientes da quadrática at² + bt + c = 0 */
+	a = vec3_length_squared(ray_direction(r));
+	h = vec3_dot(ray_direction(r), oc);
+	c = vec3_length_squared(oc) - radius * radius;
+	discriminant = h*h - a*c;
+	if (discriminant < 0.0)
+		return (-1.0);
+	else
+		return ((h - sqrt(discriminant)) / a); // retorna o menor t positivo
 }
 
 

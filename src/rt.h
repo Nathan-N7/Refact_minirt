@@ -39,6 +39,12 @@ typedef struct s_camera
 	t_vec3 upper_left_corner;
 }	t_camera;
 
+typedef enum e_hittable_type
+{
+	SPHERE // Esfera
+	// + outras futuras primitivas
+}	t_hittable_type;
+
 
 //mlx
 void	init_mlx(t_mlx *mlx, int width, int height);
@@ -52,6 +58,6 @@ t_vec3 get_pixel00(t_camera *camera);
 void destroy_camera(t_camera *camera);
 t_vec3 get_pixel_center(t_camera *camera, int i, int j, t_vec3 pixel00);
 
-int hit_sphere(t_vec3 center, double radius, t_ray r);
+double	hit_sphere(t_vec3 center, double radius, t_ray r);
 
 #endif
