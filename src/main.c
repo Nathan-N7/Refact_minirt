@@ -61,7 +61,7 @@ int main()
 	world[world_size++] = sphere_create(vec3(0.0, -100.5, -1.0), 100.0 , lambertian_create(vec3( 0.8,  0.8,  0.0)));
 	world[world_size++] = sphere_create(vec3(0.0, 0.0, -1.2), 0.5, lambertian_create(vec3(0., 0.2, 0.5)));
 	world[world_size++] = sphere_create(vec3(-1.0, 0.0, -1.0), 0.5, metal_create(vec3(0.8, 0.8, 0.8),0.0));
-	world[world_size++] = sphere_create(vec3(1.0, 0.0, -1.0), 0.5, metal_create(vec3(0.8, 0.6, 0.2), 0.03));
+	world[world_size++] = sphere_create(vec3(1.0, 0.0, -1.0), 0.5, metal_create(vec3(0.8, 0.6, 0.2), 0.6));
 
 
 	mlx = malloc(sizeof(t_mlx));

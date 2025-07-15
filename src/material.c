@@ -40,11 +40,10 @@ static int metal_scatter(const t_material *self,
                          t_vec3 *attenuation,
                          t_ray *scattered)
 {
-    t_vec3 unit_in   = vec3_unit_vector(r_in->dir);
-    t_vec3 reflected = vec3_reflect(unit_in, rec->normal);
-    t_vec3 fuzz_vec  = vec3_mul(random_unit_vector(), self->fuzz);
+    t_vec3 reflected   = vec3_reflect(r_in->dir, rec->normal);
+    reflected = vec3_add(vec3_unit_vector(reflected),vec3_mul(random_unit_vector(),self->fuzz));
 
-    *scattered   = ray(rec->p, vec3_add(reflected, fuzz_vec));
+    *scattered   = ray(rec->p, reflected);
     *attenuation = self->albedo;
 
     /* só aceita se for para fora */
