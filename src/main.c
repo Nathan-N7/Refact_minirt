@@ -11,18 +11,7 @@ int rgb_to_int(int r, int g, int b) {
 	return (r << 16) | (g << 8) | b;
 }
 
-double  random_double(void)
-{
-    /* rand() devolve inteiro em [0,RAND_MAX], então
-       dividimos por (RAND_MAX + 1.0) para obter [0,1) */
-    return (double)rand() / (RAND_MAX + 1.0);
-}
 
-double  random_double_range(double min, double max)
-{
-    /* estende [0,1) para [min,max) */
-    return min + (max - min) * random_double();
-}
 
 double linear_to_gamma(double x)
 {
@@ -59,8 +48,9 @@ int main()
 	interval_init(&intensity, 0.000, 0.999);
 
 	world[world_size++] = sphere_create(vec3(0.0, -100.5, -1.0), 100.0 , lambertian_create(vec3( 0.8,  0.8,  0.0)));
-	world[world_size++] = sphere_create(vec3(0.0, 0.0, -1.2), 0.5, lambertian_create(vec3(0., 0.2, 0.5)));
-	world[world_size++] = sphere_create(vec3(-1.0, 0.0, -1.0), 0.5, metal_create(vec3(0.8, 0.8, 0.8),0.0));
+	world[world_size++] = sphere_create(vec3(0.0, 0.0, -1.2), 0.5, lambertian_create(vec3(0., 0.2, 0.5))); // meio
+	world[world_size++] = sphere_create(vec3(-1.0, 0.0, -1.0), 0.5, dielectric_create(1.5));
+	//world[world_size++] = sphere_create(vec3(-1.0, 0.0, -1.0), 0.5, dielectric_create(1.0 / 1.5)); // vidro
 	world[world_size++] = sphere_create(vec3(1.0, 0.0, -1.0), 0.5, metal_create(vec3(0.8, 0.6, 0.2), 0.6));
 
 

@@ -62,6 +62,58 @@ t_material *metal_create(t_vec3 albedo, double fuzz)
     return m;
 }
 
+/* ================ dielectric ================= */
+
+static double reflectance(double cos, double refr_index)
+{
+    /* fórmula de Fresnel */
+    double r0 = (1 - refr_index) / (1 + refr_index);
+    r0 = r0 * r0;
+    return r0 + (1 - r0) * pow((1 - cos), 5);
+}
+
+
+static int dielectric_scatter(const t_material *self,
+                              const t_ray *r_in,
+                              const t_hit_record *rec,
+                              t_vec3 *attenuation,
+                              t_ray *scattered)
+{
+    (void)self; // Ignora self, pois não é usado neste material
+    *attenuation = self->albedo; // Define a atenuação como a cor do material
+    double ri;
+    if (rec->front_face)
+        ri = 1.0 / self->refractive_index; // Refractive index for front face
+    else
+        ri = self->refractive_index; // Refractive index for back face
+    t_vec3 unit_direction = vec3_unit_vector(r_in->dir);
+    double cos_theta = fmin(vec3_dot(vec3_neg(unit_direction), rec->normal), 1.0);
+    double sin_theta = sqrt(1.0 - cos_theta * cos_theta);
+    int cannot_refract = ri * sin_theta > 1.0;
+    t_vec3 direction;
+    if(cannot_refract || reflectance(cos_theta, ri) > random_double())
+        direction = vec3_reflect(unit_direction, rec->normal);
+    else
+        direction = vec3_refract(unit_direction, rec->normal, ri);
+
+    *scattered = ray(rec->p, direction);
+    return 1; // Sempre retorna 1, pois o espalhamento é garantido
+
+}
+
+
+t_material *dielectric_create(double refractive_index)
+{
+    t_material *m = malloc(sizeof(*m));
+    if (!m) return NULL;
+    m->scatter = dielectric_scatter;
+    m->albedo  = vec3(1.0, 1.0, 1.0); // Albedo para materiais dielétricos é geralmente branco
+    m->fuzz = 0.0;
+    m->refractive_index = refractive_index; // Define o índice de refração
+    return m;
+}
+
+
 /* ================ Destrutor ================= */
 
 void material_destroy(t_material *m)

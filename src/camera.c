@@ -17,7 +17,7 @@ t_camera *init_camera(double aspect_ratio, int image_width, int image_height)
 	cam->pixel_du_x = cam->viewport_width / (double)image_width;
 	cam->pixel_dv_y = cam->viewport_height / (double)image_height;
 	cam->upper_left_corner = vec3(-cam->viewport_u.x, cam->viewport_v.y, -cam->focal_length);
-	cam->sample_per_pixel = 10; // Inicializa com 1 amostra por pixel
+	cam->sample_per_pixel = 100; // Inicializa com 1 amostra por pixel
 	cam->pixel_sample_scale = 1.0 / cam->sample_per_pixel;
 	cam->max_depth = 50;
 

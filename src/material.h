@@ -19,11 +19,13 @@ struct s_material
     t_scatter_fn  scatter;  /* método virtual */
     t_vec3        albedo;   /* cor difusa ou refletância */
     double        fuzz;     /* para metal; ignorado em Lambertian */
+	double		refractive_index; /* índice de refração, usado em materiais como vidro */
 };
 
 /* Construtores para as “subclasses” */
 t_material *lambertian_create(t_vec3 albedo);
 t_material *metal_create(t_vec3 albedo, double fuzz);
+t_material *dielectric_create(double refractive_index);
 
 /* Destrutor único */
 void        material_destroy(t_material *m);

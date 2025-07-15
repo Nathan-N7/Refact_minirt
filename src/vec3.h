@@ -41,5 +41,8 @@ t_vec3 random_on_hemisphere(t_vec3 normal);
 int vec3_near_zero(t_vec3 v);
 
 t_vec3  vec3_reflect(t_vec3 v, t_vec3 n);
+t_vec3  vec3_refract(t_vec3 uv, t_vec3 n, double ref_index);
+double  random_double(void);
+double  random_double_range(double min, double max);
 
 #endif
