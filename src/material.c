@@ -29,6 +29,8 @@ t_material *lambertian_create(t_vec3 albedo)
     m->scatter = lambertian_scatter;
     m->albedo  = albedo;
     m->fuzz    = 0.0;
+    m->refractive_index = 1.0; // Valor padrão, não usado
+    m->color_emited = vec3(0.0, 0.0, 0.0); // Cor emitida padrão
     return m;
 }
 
@@ -59,6 +61,8 @@ t_material *metal_create(t_vec3 albedo, double fuzz)
     m->albedo  = albedo;
     /* garante 0 ≤ fuzz ≤ 1 */
     m->fuzz  = (fuzz < 1.0) ? fuzz : 1.0;
+    m->refractive_index = 1.0; // Valor padrão, não usado
+    m->color_emited = vec3(0.0, 0.0, 0.0); // Cor emitida padrão
     return m;
 }
 
@@ -110,6 +114,35 @@ t_material *dielectric_create(double refractive_index)
     m->albedo  = vec3(1.0, 1.0, 1.0); // Albedo para materiais dielétricos é geralmente branco
     m->fuzz = 0.0;
     m->refractive_index = refractive_index; // Define o índice de refração
+    m->color_emited = vec3(0.0, 0.0, 0.0); // Cor emitida padrão
+    return m;
+}
+
+
+/* ================ difuse ligth ================= */
+
+static int diffuse_ligth_scatter(const t_material *self,
+                              const t_ray *r_in,
+                              const t_hit_record *rec,
+                              t_vec3 *attenuation,
+                              t_ray *scattered)
+{
+    (void)r_in; // Ignora r_in, pois não é usado neste material
+    (void)rec;  // Ignora rec, pois não é usado neste material
+    *attenuation = self->albedo; // Define a atenuação como a cor do material
+    *scattered = ray(rec->p, random_unit_vector()); // Espalha em uma direção aleatória
+    return 0; // Retorna 0, pois não há espalhamento real, é uma fonte de luz
+}
+
+t_material *diffuse_light_create(t_vec3 albedo)
+{
+    t_material *m = malloc(sizeof(*m));
+    if (!m) return NULL;
+    m->scatter = diffuse_ligth_scatter; // Não tem método de espalhamento, pois é uma fonte de luz
+    m->albedo  = albedo;
+    m->fuzz    = 0.0;
+    m->refractive_index = 1.0; // Valor padrão, não usado
+    m->color_emited = albedo; // A cor emitida é a mesma que o albedo
     return m;
 }
 

@@ -3,6 +3,7 @@
 
 # include "vec3.h"
 # include "ray.h"
+# include "color.h"
 /* forward declare para evitar ciclos */
 typedef struct s_hit_record  t_hit_record;
 
@@ -20,12 +21,14 @@ struct s_material
     t_vec3        albedo;   /* cor difusa ou refletância */
     double        fuzz;     /* para metal; ignorado em Lambertian */
 	double		refractive_index; /* índice de refração, usado em materiais como vidro */
+    t_vec3      color_emited;    /* cor do material, usada para renderização */
 };
 
 /* Construtores para as “subclasses” */
 t_material *lambertian_create(t_vec3 albedo);
 t_material *metal_create(t_vec3 albedo, double fuzz);
 t_material *dielectric_create(double refractive_index);
+t_material *diffuse_light_create(t_vec3 albedo);
 
 /* Destrutor único */
 void        material_destroy(t_material *m);

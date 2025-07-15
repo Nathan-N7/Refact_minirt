@@ -49,6 +49,7 @@ typedef struct s_camera
 	int sample_per_pixel;
 	double pixel_sample_scale; // escala de amostragem por pixel
 	int max_depth; // profundidade máxima de recursão
+	color background_color; // cor de fundo da cena
 }	t_camera;
 
 typedef enum e_hittable_type

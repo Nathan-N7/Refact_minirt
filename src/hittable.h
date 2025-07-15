@@ -14,6 +14,8 @@ typedef struct s_hit_record
 	double t;          // parâmetro t do raio
 	t_vec3 p;         // ponto de interseção
 	t_vec3 normal;    // normal na interseção
+	double u; // coordenada u da textura
+	double v; // coordenada v da textura
 	t_material *material; // material do objeto atingido
 	int front_face;   // se a face normal está voltada para o raio
 

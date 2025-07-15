@@ -4,6 +4,8 @@
 # include "hittable.h"
 # include "material.h"
 
+# define PI 3.14159
+
 typedef struct s_sphere
 {
 	t_vec3 center; // centro da esfera

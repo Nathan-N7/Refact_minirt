@@ -1,6 +1,17 @@
 #include "sphere.h"
 #include <stdlib.h>
+#include <math.h>
+#include "vec3.h"
 
+
+void get_sphere_uv(t_vec3 *p, double *u, double *v)
+{
+	double phi = atan2(p->z, p->x) + PI;
+	double theta = asin(p->y);
+
+	*u = phi / (2.0 * PI);
+	*v = theta  / PI;
+}
 
 
 int sphere_hit(
@@ -36,10 +47,16 @@ int sphere_hit(
 		vec3_sub(rec->p, sp->center),
 		sp->radius
 	);
+	get_sphere_uv(&outward_normal, &rec->u, &rec->v);
+
 	/* orienta normal para frente ou verso */
 	set_face_normal(rec, r, outward_normal);
+
 	rec->material = sp->material;
-		return (1);
+
+
+	return (1);
+
 }
 
 /*
