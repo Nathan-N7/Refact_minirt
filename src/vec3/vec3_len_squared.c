@@ -1,6 +1,4 @@
 #include "vec3.h"
-#include <math.h>
-#include <stdlib.h>
 
 double vec3_length_squared(t_vec3 v)
 {
