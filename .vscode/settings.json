@@ -1,9 +1,0 @@
-{
-	"files.associations": {
-		"libft.h": "c",
-		"color.h": "c",
-		"hittable.h": "c",
-		"rt.h": "c",
-		"fcntl.h": "c"
-	}
-}
