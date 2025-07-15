@@ -61,6 +61,7 @@ clean:
 
 fclean: clean
 	@make -C $(LIB_DIR) fclean
+	@make -C $(SRC_DIR)/vec3 fclean
 	@rm -f $(NAME)
 	@clear
 	@echo "🗑️ Program and objects removed."
