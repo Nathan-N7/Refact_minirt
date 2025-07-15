@@ -11,6 +11,15 @@
 # include "vec3.h"
 # include "color.h"
 # include "ray.h"
+# include <math.h>
+# include "sphere.h"
+# include "interval.h"
+# include <time.h>
+# include "material.h"
+# include "hittable.h"
+# include <float.h>
+
+
 
 # define TRUE 1
 # define FALSE 0
@@ -37,6 +46,9 @@ typedef struct s_camera
 	double pixel_du_x;
 	double pixel_dv_y;
 	t_vec3 upper_left_corner;
+	int sample_per_pixel;
+	double pixel_sample_scale; // escala de amostragem por pixel
+	int max_depth; // profundidade máxima de recursão
 }	t_camera;
 
 typedef enum e_hittable_type
@@ -49,6 +61,7 @@ typedef enum e_hittable_type
 //mlx
 void	init_mlx(t_mlx *mlx, int width, int height);
 int		destroy(t_mlx *mlx);
+int	destroy_in_esc(int keycode, t_mlx *mlx);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 int		rgb_to_int(int r, int g, int b);
 
@@ -57,7 +70,13 @@ t_camera *init_camera(double aspect_ratio, int image_width, int image_height);
 t_vec3 get_pixel00(t_camera *camera);
 void destroy_camera(t_camera *camera);
 t_vec3 get_pixel_center(t_camera *camera, int i, int j, t_vec3 pixel00);
+t_ray   get_ray(const t_camera *cam, int i, int j);
+t_vec3  sample_square(void);
 
 double	hit_sphere(t_vec3 center, double radius, t_ray r);
+
+double degree_to_radian(double degree);
+double  random_double(void);
+double  random_double_range(double min, double max);
 
 #endif

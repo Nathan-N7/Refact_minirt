@@ -17,6 +17,10 @@ t_camera *init_camera(double aspect_ratio, int image_width, int image_height)
 	cam->pixel_du_x = cam->viewport_width / (double)image_width;
 	cam->pixel_dv_y = cam->viewport_height / (double)image_height;
 	cam->upper_left_corner = vec3(-cam->viewport_u.x, cam->viewport_v.y, -cam->focal_length);
+	cam->sample_per_pixel = 10; // Inicializa com 1 amostra por pixel
+	cam->pixel_sample_scale = 1.0 / cam->sample_per_pixel;
+	cam->max_depth = 50;
+
 
 	return cam;
 }
@@ -63,4 +67,39 @@ t_vec3 get_pixel_center(t_camera *camera, int i, int j, t_vec3 pixel00)
 		);
 
 	return pixel_center;
+}
+
+t_vec3  sample_square(void)
+{
+	double  dx = random_double() - 0.5;
+	double  dy = random_double() - 0.5;
+
+	return ((t_vec3){ dx, dy, 0.0 });
+}
+
+/*
+** Constrói um raio que parte de cam->camera_center e atravessa
+** o pixel (i,j), com jitter dentro do pixel.
+*/
+t_ray   get_ray(const t_camera *cam, int i, int j)
+{
+	t_vec3  offset      = sample_square();
+	/* converte índice + jitter em deslocamento físico na imagem */
+	double  u = ((double)i + offset.x) * cam->pixel_du_x;
+	double  v = ((double)j + offset.y) * cam->pixel_dv_y;
+
+	/* calcula a posição amostrada no plano da viewport */
+	t_vec3  pixel_sample = vec3_add(
+							vec3_add(
+								cam->upper_left_corner,
+								vec3(u, 0.0, 0.0)
+							),
+							vec3(0.0, -v, 0.0)
+							);
+
+	/* monta o raio: origem = centro da câmera; direção = pixel_sample - origem */
+	return ray(
+		cam->camera_center,
+		vec3_sub(pixel_sample, cam->camera_center)
+	);
 }

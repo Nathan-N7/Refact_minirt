@@ -18,6 +18,10 @@ SRCS = \
 	$(SRC_DIR)/color.c \
 	$(SRC_DIR)/camera.c \
 	$(SRC_DIR)/ray.c \
+	$(SRC_DIR)/sphere.c \
+	$(SRC_DIR)/hittable.c \
+	$(SRC_DIR)/interval.c \
+	$(SRC_DIR)/material.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -37,9 +41,13 @@ $(LIBFT):
 make_minilibx:
 		make -C minilibx-linux/
 
-run:
+val:
 	@clear
 	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
+
+run: all
+	@clear
+	./$(NAME)
 
 clean:
 	@make -C $(LIB_DIR) clean

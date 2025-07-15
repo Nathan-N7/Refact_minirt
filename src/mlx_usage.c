@@ -20,6 +20,15 @@ int	destroy(t_mlx *mlx)
 	return (0);
 }
 
+int destroy_in_esc(int keycode, t_mlx *mlx)
+{
+	if (keycode == 65307) // ESC key
+	{
+		destroy(mlx);
+	}
+	return (0);
+}
+
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 {
 	char	*dst;

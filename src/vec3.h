@@ -19,6 +19,9 @@ t_vec3 vec3_mul(t_vec3 v, double t);
 t_vec3 vec3_div(t_vec3 v, double t);
 
 // Operações in-place (modificam o vetor apontado)
+t_vec3 vec3_mult_vecs(t_vec3 a, t_vec3 b);
+
+// Operações in-place (modificam o vetor apontado)
 void vec3_add_inplace(t_vec3 *a, t_vec3 b);
 void vec3_mul_inplace(t_vec3 *v, double t);
 void vec3_div_inplace(t_vec3 *v, double t);
@@ -31,5 +34,12 @@ t_vec3 vec3_cross(t_vec3 a, t_vec3 b);
 double vec3_length(t_vec3 v);
 double vec3_length_squared(t_vec3 v);
 t_vec3 vec3_unit_vector(t_vec3 v);
+t_vec3 random_vec3(void);
+t_vec3 random_vec3_in_range(double min, double max);
+t_vec3 random_unit_vector(void);
+t_vec3 random_on_hemisphere(t_vec3 normal);
+int vec3_near_zero(t_vec3 v);
+
+t_vec3  vec3_reflect(t_vec3 v, t_vec3 n);
 
 #endif
