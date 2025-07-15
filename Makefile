@@ -8,13 +8,12 @@ MINILIBX = make_minilibx
 SRC_DIR = src
 LIB_DIR = lib
 
-
 LIBFT = $(LIB_DIR)/libft.a
+LIBVEC3 = $(SRC_DIR)/vec3/libvec3.a
 
 SRCS = \
 	$(SRC_DIR)/main.c \
 	$(SRC_DIR)/mlx_usage.c \
-	$(SRC_DIR)/vec3.c \
 	$(SRC_DIR)/color.c \
 	$(SRC_DIR)/camera.c \
 	$(SRC_DIR)/ray.c \
@@ -27,8 +26,8 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT) $(MINILIBX)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MINILIBX_FLAGS) -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT) $(LIBVEC3) $(MINILIBX)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBVEC3) $(MINILIBX_FLAGS) -o $(NAME)
 	@clear
 	@echo "✅ ${NAME} is compiled."
 
@@ -37,6 +36,9 @@ $(NAME): $(OBJS) $(LIBFT) $(MINILIBX)
 
 $(LIBFT):
 	@make -C $(LIB_DIR)
+
+$(LIBVEC3):
+	@make -C $(SRC_DIR)/vec3
 
 make_minilibx:
 		make -C minilibx-linux/
@@ -51,6 +53,7 @@ run: all
 
 clean:
 	@make -C $(LIB_DIR) clean
+	@make -C $(SRC_DIR)/vec3 clean
 	@make -C minilibx-linux/ clean
 	@rm -f $(OBJS)
 	@clear

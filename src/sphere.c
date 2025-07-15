@@ -1,7 +1,7 @@
 #include "sphere.h"
 #include <stdlib.h>
 #include <math.h>
-#include "vec3.h"
+#include "vec3/vec3.h"
 
 
 void get_sphere_uv(t_vec3 *p, double *u, double *v)

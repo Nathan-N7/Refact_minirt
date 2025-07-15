@@ -1,6 +1,6 @@
 #ifndef HITTABLE_H
 # define HITTABLE_H
-# include "vec3.h"
+# include "vec3/vec3.h"
 # include "ray.h"
 # include "interval.h"
 # include "material.h"

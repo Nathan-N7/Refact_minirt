@@ -8,7 +8,7 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <stdlib.h>
-# include "vec3.h"
+# include "vec3/vec3.h"
 # include "color.h"
 # include "ray.h"
 # include <math.h>

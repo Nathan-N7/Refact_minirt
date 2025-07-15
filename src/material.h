@@ -1,7 +1,7 @@
 #ifndef MATERIAL_H
 # define MATERIAL_H
 
-# include "vec3.h"
+# include "vec3/vec3.h"
 # include "ray.h"
 # include "color.h"
 /* forward declare para evitar ciclos */
